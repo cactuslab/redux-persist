@@ -122,7 +122,15 @@ export default function createPersistoid(config: PersistConfig): Persistoid {
     }
   }
 
-  const flush = () => {
+  const flush = force => {
+    if (force) {
+      Object.keys(lastState).forEach(key => {
+        if (!passWhitelistBlacklist(key)) return // is keyspace ignored? noop
+        if (keysToProcess.indexOf(key) !== -1) return // is key already queued? noop
+        keysToProcess.push(key) // add key to queue
+      })
+    }
+
     while (keysToProcess.length !== 0) {
       processNextKey()
     }

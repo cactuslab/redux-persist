@@ -31,7 +31,7 @@ export type PersistConfig = {
 
 export type PersistorOptions = {
   enhancer?: Function,
-  manualPersist?: boolean
+  manualPersist?: boolean,
 }
 
 export type Storage = {
@@ -61,7 +61,7 @@ export type RehydrateAction = {
 
 export type Persistoid = {
   update: Object => void,
-  flush: () => Promise<any>,
+  flush: (force: boolean) => Promise<any>,
 }
 
 type RegisterAction = {

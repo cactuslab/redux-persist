@@ -102,10 +102,13 @@ export default function persistStore(
       })
       return Promise.all(results)
     },
-    flush: () => {
+    flush: force => {
       let results = []
       store.dispatch({
         type: FLUSH,
+        payload: {
+          force,
+        },
         result: flushResult => {
           results.push(flushResult)
         },
@@ -122,7 +125,7 @@ export default function persistStore(
     },
   }
 
-  if (!(options && options.manualPersist)){
+  if (!(options && options.manualPersist)) {
     persistor.persist()
   }
 

@@ -139,7 +139,11 @@ declare module "redux-persist/es/types" {
     pause(): void;
     persist(): void;
     purge(): Promise<any>;
-    flush(): Promise<any>;
+    /**
+     * Flush changed keys to storage
+     * @param force flush all keys, rather than only changed
+     */
+    flush(force?: boolean): Promise<any>;
     dispatch(action: PersistorAction): PersistorAction;
     getState(): PersistorState;
     subscribe(callback: PersistorSubscribeCallback): () => any;
